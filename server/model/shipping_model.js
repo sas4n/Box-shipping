@@ -58,6 +58,10 @@ database.createMultiplierTable = () => {
             multiplier float(2,1) NOT NULL,
             PRIMARY KEY (country_name)
         )`
+        connectionPool.query(createMultiplierTableQuery, (err, result) => {
+            if (err) return reject(err)
+            resolve('multipliers table created')
+        })
     })
 }
 export default database
