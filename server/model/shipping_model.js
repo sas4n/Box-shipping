@@ -2,7 +2,7 @@ import mysql from 'mysql'
 
 const database = {}
 
-const databaseName = 'shipping'
+const databaseName = 'shipping_database'
 
 database.createDatabase = () => {
     return new Promise((resolve, reject) => {
@@ -50,3 +50,14 @@ database.createShippingTable = () => {
 
 })
 }
+
+database.createMultiplierTable = () => {
+    return new Promise((resolve, reject) => {
+        const createMultiplierTableQuery = `CREATE TABLE IF NOT EXISTS multipliers (
+            country_name varchar(25) NOT NULL,
+            multiplier float(2,1) NOT NULL,
+            PRIMARY KEY (country_name)
+        )`
+    })
+}
+export default database
