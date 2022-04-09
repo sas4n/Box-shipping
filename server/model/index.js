@@ -1,9 +1,10 @@
-import database from './shipping_model'
+import database from './shipping_model.js'
 
 export const prepareDatabase = async(req, res, next) => {
     await database.createDatabase()
-    database.createShippingTable()
-    .then(() => {database.createMultiplierTable()})
+    await database.createShippingTable()
+    await database.createMultiplierTable()
+    await database.insertMultipliers()
     next()
 }
 

@@ -1,4 +1,5 @@
 import mysql from 'mysql'
+import { MULTIPLIERS } from './multiplier_constants.js'
 
 const database = {}
 
@@ -8,8 +9,8 @@ database.createDatabase = () => {
     return new Promise((resolve, reject) => {
         const connection = mysql.createConnection({
             host: process.env.HOST || 'localhost',
-            user : process.env.USER,
-            password : process.env.PASSWORD,
+            user : process.env.USER || 'root',
+            password : process.env.PASSWORD || 'root',
             port : process.env.DATABASE_PORT || 3306
         })
         const query = `CREATE DATABASE IF NOT EXISTS ${databaseName};`
@@ -27,8 +28,8 @@ database.createDatabase = () => {
 
 const connectionPool = mysql.createPool({
     host : process.env.HOST || 'localhost',
-    user : process.env.USER,
-    password : process.env.PASSWORD,
+    user : process.env.USER || 'root',
+    password : process.env.PASSWORD || 'root',
     database : databaseName,
     port: process.env.DATABASE_PORT || 3306,
     connectionLimit : 15
@@ -77,5 +78,16 @@ database.getShippingLists = () => {
             resolve(result)
         })
     })
+}
+
+database.insertMultipliers = () => {
+    return new Promise((resolve, reject) => {
+        const query = `INSERT IGNORE INTO multipliers (country_name, multiplier) VALUES ?`
+        connectionPool.query(query, [MULTIPLIERS], (err, result) => {
+            if (err) return reject(err)
+            resolve(result)
+        })
+    })
+    
 }
 export default database

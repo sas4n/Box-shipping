@@ -1,4 +1,4 @@
-import {getShippingLists} from '../model'
+import {getShippingLists} from '../model/index.js'
 const controller = {}
 
 controller.getShippingLists = (req, res) => {

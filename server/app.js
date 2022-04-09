@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import router from './routers/router'
-import { prepareDatabase } from './model';
+import router from './routers/router.js'
+import { prepareDatabase } from './model/index.js';
 
 const app = express()
 
@@ -10,7 +10,7 @@ app.use(express.urlencoded({ extended:false}))
 app.use(cors())
 
 //create database and tables
-app.use(prepareDatabase())
+app.use(prepareDatabase)
 
 app.use('/#', router)
 
