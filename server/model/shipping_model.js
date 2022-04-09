@@ -41,7 +41,7 @@ database.createShippingTable = () => {
             receiver_name varchar(40) NOT NULL, 
             weight int NOT NULL,
             color varchar(20) NOT NULL,
-            country varchar(30) NOT NULL,
+            country_name varchar(30) NOT NULL,
             PRIMARY KEY (id));`
         connectionPool.query(createShippingTableQuery,(err, results) => {
             if(err) return reject(err)
@@ -61,6 +61,20 @@ database.createMultiplierTable = () => {
         connectionPool.query(createMultiplierTableQuery, (err, result) => {
             if (err) return reject(err)
             resolve('multipliers table created')
+        })
+    })
+}
+
+database.getShippingLists = () => {
+    return new Promise((resolve, reject) => {
+        const query = `SELECT s.receiver_name, s.weight, s.color, s.weight * m.multiplier AS shipping_cost
+        FROM 
+        shipping s, multipliers m
+        WHERE 
+        s.country_name = m.country_name `
+        connectionPool.query(query, (err, result) =>{
+            if (err) return reject(err)
+            resolve(result)
         })
     })
 }

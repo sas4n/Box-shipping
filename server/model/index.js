@@ -7,5 +7,9 @@ export const prepareDatabase = async(req, res, next) => {
     next()
 }
 
+export const getShippingLists = () => {
+    return database.getShippingLists()
+}
+
 
 
