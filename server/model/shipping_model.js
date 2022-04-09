@@ -1,3 +1,4 @@
+import { query } from 'express'
 import mysql from 'mysql'
 import { MULTIPLIERS } from './multiplier_constants.js'
 
@@ -36,58 +37,50 @@ const connectionPool = mysql.createPool({
 })
 
 database.createShippingTable = () => {
-    return new Promise((resolve, reject) =>{
-        const createShippingTableQuery = `CREATE TABLE IF NOT EXISTS shipping ( 
-            id int NOT NULL AUTO_INCREMENT,
-            receiver_name varchar(40) NOT NULL, 
-            weight int NOT NULL,
-            color varchar(20) NOT NULL,
-            country_name varchar(30) NOT NULL,
-            PRIMARY KEY (id));`
-        connectionPool.query(createShippingTableQuery,(err, results) => {
-            if(err) return reject(err)
-            resolve('shipping table created')
-        })
-
-})
+    const createShippingTableQuery = `CREATE TABLE IF NOT EXISTS shipping ( 
+        id int NOT NULL AUTO_INCREMENT,
+        receiver_name varchar(40) NOT NULL, 
+        weight int NOT NULL,
+        color varchar(20) NOT NULL,
+        country_name varchar(30) NOT NULL,
+        PRIMARY KEY (id));`
+    return databaseHandler(createShippingTableQuery)
 }
 
 database.createMultiplierTable = () => {
-    return new Promise((resolve, reject) => {
-        const createMultiplierTableQuery = `CREATE TABLE IF NOT EXISTS multipliers (
-            country_name varchar(25) NOT NULL,
-            multiplier float(2,1) NOT NULL,
-            PRIMARY KEY (country_name)
-        )`
-        connectionPool.query(createMultiplierTableQuery, (err, result) => {
-            if (err) return reject(err)
-            resolve('multipliers table created')
-        })
-    })
+    const createMultiplierTableQuery = `CREATE TABLE IF NOT EXISTS multipliers (
+        country_name varchar(25) NOT NULL,
+        multiplier float(2,1) NOT NULL,
+        PRIMARY KEY (country_name)
+    )`
+    return databaseHandler(createMultiplierTableQuery)
 }
 
 database.getShippingLists = () => {
-    return new Promise((resolve, reject) => {
-        const query = `SELECT s.receiver_name, s.weight, s.color, s.weight * m.multiplier AS shipping_cost
-        FROM 
-        shipping s, multipliers m
-        WHERE 
-        s.country_name = m.country_name `
-        connectionPool.query(query, (err, result) =>{
-            if (err) return reject(err)
-            resolve(result)
-        })
-    })
+    const query = `SELECT s.receiver_name, s.weight, s.color, s.weight * m.multiplier AS shipping_cost
+    FROM 
+    shipping s, multipliers m
+    WHERE 
+    s.country_name = m.country_name `
+    return databaseHandler(query)
 }
 
 database.insertMultipliers = () => {
+    const query = `INSERT IGNORE INTO multipliers (country_name, multiplier) VALUES ?`
+    return databaseHandler(query, MULTIPLIERS) 
+}
+
+database.insertDataIntoShippings = (data) => {
+    const query = `INSERT IGNORE INTO SHIPPINGS (receiver_name, weight, color, country_name) VALUES ?`
+    return databaseHandler(query, data)
+}
+
+const databaseHandler = (query, values) => {
     return new Promise((resolve, reject) => {
-        const query = `INSERT IGNORE INTO multipliers (country_name, multiplier) VALUES ?`
-        connectionPool.query(query, [MULTIPLIERS], (err, result) => {
+        connectionPool.query(query, [values], (err, result) => {
             if (err) return reject(err)
             resolve(result)
         })
     })
-    
 }
 export default database

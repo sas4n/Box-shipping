@@ -8,8 +8,12 @@ export const prepareDatabase = async(req, res, next) => {
     next()
 }
 
-export const getShippingLists = () => {
-    return database.getShippingLists()
+export const getShippingLists = async() => {
+    return await database.getShippingLists()
+}
+
+export const saveShippingLists = async(data) => {
+    return await database.insertDataIntoShippings(data)
 }
 
 
