@@ -2,6 +2,7 @@ import {getShippingLists, saveShippingLists} from '../model/index.js'
 const controller = {}
 
 controller.getALLShippingListsHandler = (req, res, next) => {
+    console.log('before databse call')
     getShippingLists()
     .then(lists => res.json(lists))
     .catch(err => next(err))

@@ -12,7 +12,7 @@ app.use(cors())
 //create database and tables
 app.use(prepareDatabase)
 
-app.use('/#', router)
+app.use('/api', router)
 
 app.use((req, res, next) => {
     const error = new Error('page not found')
