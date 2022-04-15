@@ -10,7 +10,7 @@ const InsertForm = () => {
             g: 25,
             b: 30,
         },
-        country : '',
+        country : 'Sweden',
     }
 
     const [boxInfo, setBOxInfo] = useState(initialBoxInfo)
@@ -23,11 +23,18 @@ const InsertForm = () => {
         <form onSubmit={submitHandler}>
             <div>
                 <label >Name</label>
-                <input type='text' name='name' id='name' value={boxInfo.name}/>
+                <input type='text' name='name' id='name' onChange={event =>{
+                    setBOxInfo({
+                        ...boxInfo,name: event.target.value
+                    })
+                    console.log(boxInfo)
+                }} value={boxInfo.name}/>
             </div>
             <div>
                 <label >Weight</label>
-                <input type='number' name='weight' id='weight' value={boxInfo.weight}/>
+                <input type='number' name='weight' id='weight' value={boxInfo.weight} onChange={event =>{
+                    setBOxInfo({...boxInfo,weight: event.target.value})
+                }}/>
             </div>
             <div>
             
@@ -40,10 +47,23 @@ const InsertForm = () => {
                                     r:colourRGB.r,
                                     g:colourRGB.g,
                                     b:colourRGB.b
-                                }})}}/>
-                <h2>
-            {JSON.stringify(boxInfo)}
-        </h2>
+                                }
+                                })
+                                console.log(boxInfo)
+                                }}/>
+                
+                <h2>{JSON.stringify(boxInfo)} </h2>
+            </div>
+            <div>
+                <select value= {boxInfo.country} onChange={ event => {
+                    setBOxInfo({...boxInfo, country: event.target.value})
+                }}>
+                    
+                    <option value="China">China</option>
+                    <option value="Sweden">Sweden</option>
+                    <option value="Australia">Australia</option>
+                    <option value="Brazil">Brazil</option>
+                </select>
             </div>
             
         </form>
