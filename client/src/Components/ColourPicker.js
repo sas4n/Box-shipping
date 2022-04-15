@@ -1,11 +1,9 @@
-import {useState } from 'react'
+import react, {useState } from 'react'
 import {ChromePicker} from 'react-color'
 
-const ColorPicker = () => {
+const ColorPicker = (props) => {
     const initialColourRGB = { 
-        r:25,
-        g:25,
-        b:30,
+        rgb: {...props.colourRGB},
         a:1
     }
     const [colour, setColour] = useState(initialColourRGB)
@@ -15,8 +13,10 @@ const ColorPicker = () => {
         console.log(colour)
     }
     const changeColourHandler = (newColour) => {
-        console.log(newColour.rgb)
-        setColour({...newColour.rgb})
+        //console.log(newColour.rgb)
+        setColour({...colour, ...newColour})
+        console.log(colour.rgb)
+        props.onChange(colour.rgb)
     }
     return(
         <div>
@@ -24,9 +24,10 @@ const ColorPicker = () => {
             {visible ? 
                 <ChromePicker 
                     color={colour}
-                    onChange={changeColourHandler}/>
+                    onChange={changeColourHandler}
+                   // onChangeComplete={() => props.onChange(colour.rgb)}
+                    />
             : null}
-            <h2>colour rgb is r:{colour.r}, g:{colour.g}, b:{colour.b}</h2>
         </div>
     )
 }
