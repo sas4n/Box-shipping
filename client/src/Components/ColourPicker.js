@@ -20,7 +20,7 @@ const ColorPicker = (props) => {
     }
     return(
         <div>
-            <button onClick={clickHandler}>{visible?'choose the colour':'click to show colour picker'}</button>
+            <button type='button' onClick={clickHandler}>{visible?'choose the colour':'click to show colour picker'}</button>
             {visible ? 
                 <ChromePicker 
                     color={colour}

@@ -14,8 +14,29 @@ const InsertForm = () => {
     }
 
     const [boxInfo, setBOxInfo] = useState(initialBoxInfo)
+    const [submitted, setSubmitted] = useState(false)
     const submitHandler = (event) => {
         event.preventDefault()
+        setSubmitted(true)
+    }
+    const onChangeHandler = (event) => {
+        setBOxInfo({
+            ...boxInfo,
+            [event.target.name] : event.target.value
+        })
+        setSubmitted(false)//to disappear the validation message after changing any value in required fields
+    }
+    const onNegativeWeightErrorHandler = () => {
+        setTimeout(() => {
+            setBOxInfo({
+                ...boxInfo,
+                weight: '0'
+            })
+        }, 3000);
+        return (
+            <span>Weight could not be negative</span>
+                ) 
+        
     }
     return(
         <div className='form-container'>
@@ -23,18 +44,15 @@ const InsertForm = () => {
         <form onSubmit={submitHandler}>
             <div>
                 <label >Name</label>
-                <input type='text' name='name' id='name' onChange={event =>{
-                    setBOxInfo({
-                        ...boxInfo,name: event.target.value
-                    })
-                    console.log(boxInfo)
-                }} value={boxInfo.name}/>
+                <input type='text' name='name' id='name' onChange={onChangeHandler} value={boxInfo.name}/>
+                {submitted && !boxInfo.name ? <span>Please enter the name</span> : null}
             </div>
+            
             <div>
                 <label >Weight</label>
-                <input type='number' name='weight' id='weight' value={boxInfo.weight} onChange={event =>{
-                    setBOxInfo({...boxInfo,weight: event.target.value})
-                }}/>
+                <input type='number' name='weight' id='weight' value={boxInfo.weight} onChange={onChangeHandler}/>
+                {submitted && !boxInfo.weight ? <span>Please enter the weight</span> : null}
+                {submitted && boxInfo.weight<0 ? onNegativeWeightErrorHandler() : null}
             </div>
             <div>
             
@@ -55,15 +73,15 @@ const InsertForm = () => {
                 <h2>{JSON.stringify(boxInfo)} </h2>
             </div>
             <div>
-                <select value= {boxInfo.country} onChange={ event => {
-                    setBOxInfo({...boxInfo, country: event.target.value})
-                }}>
-                    
+                <select value= {boxInfo.country} name= 'country' onChange={onChangeHandler}>
                     <option value="China">China</option>
                     <option value="Sweden">Sweden</option>
                     <option value="Australia">Australia</option>
                     <option value="Brazil">Brazil</option>
                 </select>
+            </div>
+            <div>
+                <button type="submit" >Save</button>
             </div>
             
         </form>
