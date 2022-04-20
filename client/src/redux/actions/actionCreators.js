@@ -1,5 +1,5 @@
 import * as actionType from './actionType'
-import * as api from '../api'
+import * as api from '../../api'
 
 export const WaitingForResponse = () => {
     return {
@@ -29,10 +29,18 @@ export const errorReceived = (error) => {
     }
 }
 
-export const addBox = (boxInfo) => (dispatch) => {
+export const addBox = (boxInfo) => async(dispatch) => {
     dispatch(WaitingForResponse)
-    api.sendSaveBoxInfoRequest(boxInfo)
-    .then((response) => dispatch(saveBoxInfo()))
-    .catch((error) => dispatch(errorReceived(error.message)))
+    try{
+        await api.sendSaveBoxInfoRequest(boxInfo)
+        dispatch(saveBoxInfo)
+    }catch(error) {
+        dispatch(errorReceived(error.message))
+    }
+    
+      //  dispatch(saveBoxInfo())
+       // console.log(response)
+  //  })
+    
 
 }

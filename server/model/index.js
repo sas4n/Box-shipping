@@ -12,7 +12,11 @@ export const getShippingLists = async() => {
     return await database.getShippingLists()
 }
 
-export const saveShippingLists = async(data) => {
+const processTheDataBeforeInsertingIntoDatabsae = (data) => {
+    //const dataToBeInserted = [data.name, data.weight, data.]
+}
+
+export const saveShippingLists = async(...data) => {
     return await database.insertDataIntoShippings(data)
 }
 

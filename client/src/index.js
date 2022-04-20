@@ -6,7 +6,7 @@ import ReactDOMClient from 'react-dom/client';
 import { Provider } from 'react-redux';
 import {createStore, compose, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk'
-import reducers from './reducers'
+import reducers from './redux/reducers'
 
 const container = document.getElementById('root');
 const root = ReactDOMClient.createRoot(container);

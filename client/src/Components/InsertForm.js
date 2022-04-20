@@ -1,11 +1,12 @@
-import React, {useState, useDispatch } from 'react'
+import React, {useState} from 'react'
+import {useDispatch } from 'react-redux'
 import ColorPicker from './ColourPicker'
 import {addBox} from '../redux/actions/actionCreators'
 
 const InsertForm = () => {
     const initialBoxInfo = {
         name: '',
-        weight: '',
+        weight: 2,
         colour:{
             r: 25,
             g: 25,

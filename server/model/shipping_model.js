@@ -41,7 +41,9 @@ database.createShippingTable = () => {
         id int NOT NULL AUTO_INCREMENT,
         receiver_name varchar(40) NOT NULL, 
         weight int NOT NULL,
-        color varchar(20) NOT NULL,
+        color_r int NOT NULL,
+        color_g int NOT NULL,
+        color_b int NOT NULL,
         country_name varchar(30) NOT NULL,
         PRIMARY KEY (id));`
     return databaseHandler(createShippingTableQuery)
@@ -57,7 +59,7 @@ database.createMultiplierTable = () => {
 }
 
 database.getShippingLists = () => {
-    const query = `SELECT s.receiver_name, s.weight, s.color, s.weight * m.multiplier AS shipping_cost
+    const query = `SELECT s.receiver_name, s.weight, s.color_r, s.color_g, s.color_b, weight * m.multiplier AS shipping_cost
     FROM 
     shipping s, multipliers m
     WHERE 
@@ -71,8 +73,16 @@ database.insertMultipliers = () => {
 }
 
 database.insertDataIntoShippings = (data) => {
-    const query = `INSERT IGNORE INTO SHIPPINGS (receiver_name, weight, color, country_name) VALUES ?`
-    return databaseHandler(query, data)
+    console.log( data )
+    const query = `INSERT IGNORE INTO shipping (receiver_name, weight, color_r, color_g, color_b, country_name) VALUES 
+    (?,?,?,?,?,?)`
+    //return databaseHandler(query, data)
+   return new Promise((resolve, reject) => {
+    connectionPool.query(query, data ,(err, result) => {
+        if (err) return reject(err)
+        resolve(result)
+    })
+})
 }
 
 const databaseHandler = (query, values) => {
