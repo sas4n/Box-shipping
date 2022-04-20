@@ -1,5 +1,6 @@
-import  {useState } from 'react'
+import React, {useState, useDispatch } from 'react'
 import ColorPicker from './ColourPicker'
+import {addBox} from '../redux/actions/actionCreators'
 
 const InsertForm = () => {
     const initialBoxInfo = {
@@ -8,16 +9,19 @@ const InsertForm = () => {
         colour:{
             r: 25,
             g: 25,
-            b: 30,
+            b: 0,
         },
         country : 'Sweden',
     }
 
     const [boxInfo, setBOxInfo] = useState(initialBoxInfo)
     const [submitted, setSubmitted] = useState(false)
+    const dispatchAddBox = useDispatch()
+    
     const submitHandler = (event) => {
         event.preventDefault()
         setSubmitted(true)
+        dispatchAddBox(addBox(boxInfo))
     }
     const onChangeHandler = (event) => {
         setBOxInfo({
@@ -69,6 +73,7 @@ const InsertForm = () => {
                                 })
                                 console.log(boxInfo)
                                 }}/>
+                {submitted && boxInfo.colour.b>0 ? <span>User could not choose blue colour</span> : null}
                 
                 <h2>{JSON.stringify(boxInfo)} </h2>
             </div>
