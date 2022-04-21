@@ -13,12 +13,11 @@ const root = ReactDOMClient.createRoot(container);
 const store = createStore(reducers, compose(applyMiddleware(thunk)))
 
 root.render(
-  <React.StrictMode>
     <Provider store ={store}>
     <App />
     </Provider>
-    
-  </React.StrictMode>
+    //remove strictMode to prevent rendering page 2 times
+  
 );
 
 // If you want to start measuring performance in your app, pass a function

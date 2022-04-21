@@ -1,8 +1,8 @@
 import { combineReducers } from "redux"
-import addBoxReducer from "./addBoxReducer"
+import boxesInfo from "./addBoxReducer"
 
 const reducer = combineReducers({
-    addBoxReducer
+    boxesInfo
 })
 
 export default reducer

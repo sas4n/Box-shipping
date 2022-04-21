@@ -59,7 +59,7 @@ database.createMultiplierTable = () => {
 }
 
 database.getShippingLists = () => {
-    const query = `SELECT s.receiver_name, s.weight, s.color_r, s.color_g, s.color_b, weight * m.multiplier AS shipping_cost
+    const query = `SELECT s.id, s.receiver_name, s.weight, s.color_r, s.color_g, s.color_b, weight * m.multiplier AS shipping_cost
     FROM 
     shipping s, multipliers m
     WHERE 
@@ -89,6 +89,7 @@ const databaseHandler = (query, values) => {
     return new Promise((resolve, reject) => {
         connectionPool.query(query, [values], (err, result) => {
             if (err) return reject(err)
+            console.log(result)
             resolve(result)
         })
     })

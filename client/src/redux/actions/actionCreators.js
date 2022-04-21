@@ -17,7 +17,7 @@ export const saveBoxInfo = (boxInfo) => {
 
 export const getBoxLists = (shippingLists) => {
     return {
-        type: actionType.GET_BOX_LIST,
+        type: actionType.GET_BOX_LIST_SUCCESSFULLY,
         payload: shippingLists
     }
 }
@@ -30,17 +30,24 @@ export const errorReceived = (error) => {
 }
 
 export const addBox = (boxInfo) => async(dispatch) => {
-    dispatch(WaitingForResponse)
+    dispatch(WaitingForResponse())
     try{
         await api.sendSaveBoxInfoRequest(boxInfo)
-        dispatch(saveBoxInfo)
+        dispatch(saveBoxInfo())
     }catch(error) {
         dispatch(errorReceived(error.message))
     }
-    
-      //  dispatch(saveBoxInfo())
-       // console.log(response)
-  //  })
-    
+}
+
+export const fetchAllBoxLists = () => async(dispatch) => {
+    dispatch(WaitingForResponse())
+    try{
+        const {data} = await api.sendGetBoxListsRequest()
+       // data.forEach(box => console.log(box))
+        console.log(data)
+        dispatch(getBoxLists(data))
+    }catch(error) {
+        dispatch(errorReceived(error.message))
+    }
 
 }
