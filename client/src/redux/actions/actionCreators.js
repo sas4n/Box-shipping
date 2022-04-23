@@ -45,7 +45,7 @@ export const fetchAllBoxLists = () => async(dispatch) => {
         const {data} = await api.sendGetBoxListsRequest()
        // data.forEach(box => console.log(box))
         console.log(data)
-        dispatch(getBoxLists(data))
+       // dispatch(getBoxLists(data))
     }catch(error) {
         dispatch(errorReceived(error.message))
     }

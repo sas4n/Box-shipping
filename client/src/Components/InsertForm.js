@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import {useDispatch } from 'react-redux'
 import ColorPicker from './ColourPicker'
 import {addBox} from '../redux/actions/actionCreators'
@@ -7,20 +7,27 @@ const InsertForm = () => {
     const initialBoxInfo = {
         name: '',
         weight: 2,
-        
+        colour:{
+            r:25,
+            g:25,
+            b:0
+        },
         country : 'Sweden',
     }
 
     const [boxInfo, setBOxInfo] = useState(initialBoxInfo)
-    const initialColour = {
+  /*  const initialColour = {
             r: 25,
             g: 25,
             b: 0,
-            a:1
     }
-    const [boxColour, setBOxColour] = useState(initialColour)
+    const [boxColour, setBoxColour] = useState(initialColour)*/
     const [submitted, setSubmitted] = useState(false)
     const dispatchAddBox = useDispatch()
+    const [visible, setVisible] = useState(false)
+    const clickHandler = () => {
+        setVisible(visible=>!visible)
+    }
     
     const submitHandler = (event) => {
         event.preventDefault()
@@ -67,16 +74,20 @@ const InsertForm = () => {
             
                 <label >Box Color </label>
                 <button type='button' onClick={clickHandler}>{visible?'choose the colour':'click to show colour picker'}</button>
-                <ColorPicker colour = {boxColour} onChange={colourRGB =>{ 
-                    setBOxColour({...boxColour,
-                                    r:colourRGB.r,
-                                    g:colourRGB.g,
-                                    b:colourRGB.b
+                {visible?<ColorPicker colour = {boxInfo.colour} onChange={colourRGB =>{ 
+                    setBOxInfo({...boxInfo,
+                                    colour:{
+                                        ...boxInfo.colour,
+                                        r:colourRGB.r,
+                                        g:colourRGB.g,
+                                        b:colourRGB.b
+                                    }
+                                   
                                 })
-                                }}/>
+                                }}/>:null}
                 {submitted && boxInfo.colour.b>0 ? <span>User could not choose blue colour</span> : null}
                 
-                <h2>{JSON.stringify(boxColour)} </h2>
+                <h2>{JSON.stringify(boxInfo)} </h2>
             </div>
             <div>
                 <select value= {boxInfo.country} name= 'country' onChange={onChangeHandler}>
