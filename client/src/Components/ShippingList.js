@@ -3,11 +3,10 @@ import {useDispatch, useSelector} from 'react-redux'
 import {fetchAllBoxLists} from '../redux/actions/actionCreators'
 import ListTable from './ListTable'
 import ShippingSummary from './ShippingSummary'
+import Header from './Header'
 
 const ShippingList = () => {
     const {boxes} = useSelector((state) =>state.boxesInfo)
-    console.log(boxes)
-    //boxes.forEach((box) => {console.log(box[0].id)})
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -16,13 +15,10 @@ const ShippingList = () => {
 
     return(
         <>
-            <h1>listBoxes</h1>
-            <ListTable />
-            <ShippingSummary />
-           
+            <Header>List Boxes</Header>
+            <ListTable boxes={boxes} />
+            <ShippingSummary boxes={boxes}/>  
         </>
-        
-        
     )
 }
 

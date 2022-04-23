@@ -1,6 +1,4 @@
-import {useSelector} from 'react-redux'
-const ShippingSummary = () => {
-    const {boxes} = useSelector(state => state.boxesInfo)
+const ShippingSummary = ({boxes}) => {
 
     return(
         <>

@@ -1,9 +1,6 @@
 import React from 'react'
-import {useSelector} from 'react-redux'
-import TableRow from './TableRow'
 
-const ListTable = () => {
-    const {boxes} = useSelector(state => state.boxesInfo)
+const ListTable = ({boxes}) => {
     return (
         <>
         <table>
@@ -17,7 +14,12 @@ const ListTable = () => {
                 </thead>
                 <tbody>
                     {boxes.map(box =>(
-                        <TableRow box={box} />
+                        <tr key={box.id}>
+                            <td>{box.receiver_name}</td>
+                            <td>{box.weight} kilograms</td>
+                            <td>{box.color_r},{box.color_g},{box.color_b}</td>
+                            <td>{box.shipping_cost} SEK</td>
+                        </tr>
                     ))}
                 </tbody>
             </table>
