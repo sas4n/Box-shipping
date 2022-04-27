@@ -10,6 +10,7 @@ function App() {
     console.log('App')
   }, [])
   return (
+    <>
     <Router>
     <div className="App">
         <Routes>
@@ -19,6 +20,7 @@ function App() {
         </Routes>
         </div>
       </Router>
+      </>
     
   );
 }

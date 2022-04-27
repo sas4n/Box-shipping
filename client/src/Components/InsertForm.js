@@ -1,30 +1,29 @@
-import React, {useState} from 'react'
-import {useDispatch } from 'react-redux'
+import React, {useState, useEffect} from 'react'
+import {useDispatch, useSelector } from 'react-redux'
 import ColorPicker from './ColourPicker'
-import {addBox} from '../redux/actions/actionCreators'
+import {addBox} from '../redux/actions/saveAndGetDataActionCreators'
+import {onInputChange, onColourChange, onNegativeWeightEntered} from '../redux/actions/stateActionCreators'
+import Header from './Header'
+import UserInputField from './UserInputField'
+import ValidationErrorMsg from './ValidationErrorMsg'
+import Button from './Button'
+import DropDownMenu from './DropDownMenu'
+import Label from './Label'
+
 
 const InsertForm = () => {
-    const initialBoxInfo = {
-        name: '',
-        weight: 2,
-        colour:{
-            r:25,
-            g:25,
-            b:0
-        },
-        country : 'Sweden',
-    }
 
-    const [boxInfo, setBOxInfo] = useState(initialBoxInfo)
-  /*  const initialColour = {
-            r: 25,
-            g: 25,
-            b: 0,
-    }
-    const [boxColour, setBoxColour] = useState(initialColour)*/
+    const boxInfo = useSelector(state => state.boxInfo)
+
     const [submitted, setSubmitted] = useState(false)
-    const dispatchAddBox = useDispatch()
+    const dispatch = useDispatch()
     const [visible, setVisible] = useState(false)
+    const [validate, setValidate] = useState(false)
+
+    useEffect(() => {
+        validationCheck()
+    }, [boxInfo])//eslint-disable-line react-hooks/exhaustive-deps
+
     const clickHandler = () => {
         setVisible(visible=>!visible)
     }
@@ -32,73 +31,66 @@ const InsertForm = () => {
     const submitHandler = (event) => {
         event.preventDefault()
         setSubmitted(true)
-        console.log(boxInfo)
-        dispatchAddBox(addBox(boxInfo))
+        onNegativeWeightErrorHandler()
+        if(validate){
+            dispatch(addBox(boxInfo))
+        }      
+           
     }
     const onChangeHandler = (event) => {
-        setBOxInfo({
-            ...boxInfo,
-            [event.target.name] : event.target.value
-        })
+        dispatch(onInputChange(event))
         setSubmitted(false)//to disappear the validation message after changing any value in required fields
+       // validationCheck()
     }
     const onNegativeWeightErrorHandler = () => {
+       
+        if (boxInfo.weight<0){
         setTimeout(() => {
-            setBOxInfo({
-                ...boxInfo,
-                weight: '0'
-            })
-        }, 3000);
-        return (
-            <span>Weight could not be negative</span>
-                ) 
-        
+            dispatch(onNegativeWeightEntered())
+        }, 3000)
     }
+                
+    }
+
+    const validationCheck = () => {
+        if(boxInfo.name.length>0 && boxInfo.weight>0  && boxInfo.colour.b===0){
+            setValidate(true)
+        }else{
+            setValidate(false)
+        }
+    }
+
+    const onColourChangeHandler = (newColourRGB) => {
+        dispatch(onColourChange(newColourRGB))
+      //  validationCheck()
+ }
     return(
         <div className='form-container'>
-            <h1>insertForm</h1>
+            <Header>insertForm</Header>
         <form onSubmit={submitHandler}>
             <div>
-                <label >Name</label>
-                <input type='text' name='name' id='name' onChange={onChangeHandler} value={boxInfo.name}/>
-                {submitted && !boxInfo.name ? <span>Please enter the name</span> : null}
+                <UserInputField type="text" name="name" value={boxInfo.name} onChange={onChangeHandler}>name </UserInputField>
+                <ValidationErrorMsg show={submitted & !boxInfo.name}>Please Enter the name</ValidationErrorMsg>
             </div>
             
             <div>
-                <label >Weight</label>
-                <input type='number' name='weight' id='weight' value={boxInfo.weight} onChange={onChangeHandler}/>
-                {submitted && !boxInfo.weight ? <span>Please enter the weight</span> : null}
-                {submitted && boxInfo.weight<0 ? onNegativeWeightErrorHandler() : null}
+                <UserInputField type='number' name='weight' value={boxInfo.weight} onChange={onChangeHandler}>Weight</UserInputField>
+                <ValidationErrorMsg show={submitted && !boxInfo.weight}>Please Enter the weight</ValidationErrorMsg>
+                <ValidationErrorMsg show={submitted && boxInfo.weight<0 } >Weight could not be negative</ValidationErrorMsg>
             </div>
             <div>
             
-                <label >Box Color </label>
-                <button type='button' onClick={clickHandler}>{visible?'choose the colour':'click to show colour picker'}</button>
-                {visible?<ColorPicker colour = {boxInfo.colour} onChange={colourRGB =>{ 
-                    setBOxInfo({...boxInfo,
-                                    colour:{
-                                        ...boxInfo.colour,
-                                        r:colourRGB.r,
-                                        g:colourRGB.g,
-                                        b:colourRGB.b
-                                    }
-                                   
-                                })
-                                }}/>:null}
-                {submitted && boxInfo.colour.b>0 ? <span>User could not choose blue colour</span> : null}
+                <Label >Box Color </Label>
+                <Button type='button' onClick={clickHandler}>{visible?'choose the colour':'click to show colour picker'}</Button>
+                {visible?<ColorPicker colour = {boxInfo.colour} onChange={onColourChangeHandler}/>:null}
+                <ValidationErrorMsg show={submitted && boxInfo.colour.b >0 }>User could not choose blue colour</ValidationErrorMsg>
                 
                 <h2>{JSON.stringify(boxInfo)} </h2>
+                <h2>{JSON.stringify(validate)}</h2>
             </div>
+                <DropDownMenu value={boxInfo.country} onChange={onChangeHandler} />
             <div>
-                <select value= {boxInfo.country} name= 'country' onChange={onChangeHandler}>
-                    <option value="China">China</option>
-                    <option value="Sweden">Sweden</option>
-                    <option value="Australia">Australia</option>
-                    <option value="Brazil">Brazil</option>
-                </select>
-            </div>
-            <div>
-                <button type="submit" >Save</button>
+                <Button type='submit'>Save</Button>
             </div>
             
         </form>
@@ -109,3 +101,35 @@ const InsertForm = () => {
 }
 
 export default InsertForm
+
+
+
+
+
+
+ /*const initialBoxInfo = {
+        name: '',
+        weight: 2,
+        colour:{
+            r:25,
+            g:25,
+            b:0
+        },
+        country : 'Sweden',
+    }
+
+    const [boxInfo, setBOxInfo] = useState(initialBoxInfo)*/
+
+     /* setBOxInfo({
+            ...boxInfo,
+            [event.target.name] : event.target.value
+        })*/
+
+         /*  setBOxInfo({...boxInfo,
+            colour:{
+                ...boxInfo.colour,
+                r:newColourRGB.r,
+                g:newColourRGB.g,
+                b:newColourRGB.b
+            }
+        })*/

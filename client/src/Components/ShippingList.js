@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {fetchAllBoxLists} from '../redux/actions/actionCreators'
+import {fetchAllBoxLists} from '../redux/actions/saveAndGetDataActionCreators'
 import ListTable from './ListTable'
 import ShippingSummary from './ShippingSummary'
 import Header from './Header'
