@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {useDispatch, useSelector } from 'react-redux'
 import ColorPicker from '../Components/ColourPicker'
-import {addBox} from '../redux/actions/saveAndGetDataActionCreators'
-import {onInputChange, onColourChange, onNegativeWeightEntered} from '../redux/actions/stateActionCreators'
+import {addBox, onInputChange, onColourChange, onNegativeWeightEntered} from '../redux/actions'
 import Header from '../Components/Header'
 import UserInputField from '../Components/UserInputField'
 import ValidationErrorMsg from '../Components/ValidationErrorMsg'
@@ -46,15 +45,13 @@ const InsertForm = () => {
         setSubmitted(false)//to disappear the validation message after changing any value in required fields
       
     }
-         
-    
 
     const onColourChangeHandler = (newColourRGB) => {
         dispatch(onColourChange(newColourRGB))
  }
     return(
         <div className='form-container'>
-            <Header>insertForm</Header>
+            <Header>InsertForm</Header>
         <form onSubmit={submitHandler}>
             <div>
                 <UserInputField type="text" name="name" value={boxInfo.name} onChange={onChangeHandler}>name </UserInputField>
