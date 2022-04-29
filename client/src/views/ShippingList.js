@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {fetchAllBoxLists} from '../redux/actions/saveAndGetDataActionCreators'
-import ListTable from './ListTable'
-import ShippingSummary from './ShippingSummary'
-import Header from './Header'
+import ListTable from '../Components/ListTable'
+import ShippingSummary from '../Components/ShippingSummary'
+import Header from '../Components/Header'
 
 const ShippingList = () => {
     const {boxes} = useSelector((state) =>state.boxesInfo)

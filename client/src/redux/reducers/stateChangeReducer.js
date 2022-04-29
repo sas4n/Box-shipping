@@ -2,10 +2,10 @@ import {INPUT_CHANGED, COLOUR_CHANGED, NEGATIVE_WEIGHT_ENTERED} from "../actions
 
 const initialState = {
     name: '',
-    weight: 2,
+    weight: '',
     colour:{
-        r:25,
-        g:25,
+        r:0,
+        g:0,
         b:0
     },
     country : 'Sweden',

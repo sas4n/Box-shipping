@@ -1,7 +1,6 @@
-import logo from './logo.svg';
 import './App.css';
-import InsertForm from './Components/InsertForm.js'
-import ShippingList from './Components/ShippingList'
+import InsertForm from './views/InsertForm.js'
+import ShippingList from './views/ShippingList'
 import {Home} from './Components/Home.js'
 import {HashRouter as Router, Routes, Route} from 'react-router-dom'
 import {useEffect} from 'react'
@@ -21,7 +20,6 @@ function App() {
         </div>
       </Router>
       </>
-    
   );
 }
 
