@@ -1,5 +1,4 @@
 @import "label";
-@import "userInputField.less";
 
 @height:25px;
 @width:200px;
@@ -9,7 +8,6 @@
     width:@width;
     height: @height;
 }
-
 .center-in-column{
     flex-direction: column;
     justify-content: center;
@@ -36,13 +34,14 @@
     .input-field{
         .allWidthsAndHeights(@width, @height);
         background-color:@inputs-background-color;
-        padding: 0;
+        padding-left: 5px;
         margin:0;
     }
     select{
         .allWidthsAndHeights(@width, @height);
         background-color:@inputs-background-color;
         border: 2px solid;
+        text-align: center;
         }
     
     Button{
@@ -50,14 +49,21 @@
 
         
         &:nth-of-type(1){
-            padding: 0;
             .allWidthsAndHeights(@width, @height);
             background-color:@inputs-background-color;
         }
         &:last-of-type{
             margin-top: 10px;
             align-self: end;
-            margin-right: 50px;
+            margin-right: 30px;
+            height: 25px;
         }
     }
+}
+
+.error-message {
+    font-size: 8px;
+    color: red;
+    height: 10px;
+
 }

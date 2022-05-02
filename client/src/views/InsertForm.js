@@ -17,6 +17,7 @@ import negativeWeightHandler from '../logic/negativeWeightHandler'
 const InsertForm = () => {
 
     const boxInfo = useSelector(state => state.boxInfo)
+    console.log(boxInfo)
     const {errors, doValidation} = useValidationError(boxInfo)
     const {validated} = useValidate(errors)
 
@@ -48,6 +49,7 @@ const InsertForm = () => {
     }
 
     const onColourChangeHandler = (newColourRGB) => {
+        setSubmitted(false)
         dispatch(onColourChange(newColourRGB))
  }
     return(
@@ -56,16 +58,18 @@ const InsertForm = () => {
         <form className='form-container' onSubmit={submitHandler}>
                 
                 <Label className='label'>Name</Label>
+
                 
                 <UserInputField className='input-field'type="text" name="name" value={boxInfo.name} onChange={onChangeHandler}/>
                 
-                <ValidationErrorMsg show={submitted}>{errors.emptyNameError}</ValidationErrorMsg>
+                <ValidationErrorMsg className= 'error-message' show={submitted}>{errors.emptyNameError}</ValidationErrorMsg>
                 
                 <Label>Weight</Label>
                 
                 <UserInputField className='input-field' type='number' name='weight' value={boxInfo.weight} onChange={onChangeHandler}/>
-                <ValidationErrorMsg show={submitted}>{errors.emptyWeightError}</ValidationErrorMsg>
-                <ValidationErrorMsg show={submitted} >{errors.negativeWeightError}</ValidationErrorMsg>
+                {errors.emptyWeightError ? 
+                <ValidationErrorMsg className= 'error-message' show={submitted}>{errors.emptyWeightError}</ValidationErrorMsg> :
+                <ValidationErrorMsg className= 'error-message' show={submitted} >{errors.negativeWeightError}</ValidationErrorMsg>}
                
                 <Label>Box Color </Label>
                
@@ -75,25 +79,14 @@ const InsertForm = () => {
                 
                {visible?<ColorPicker className='color-picker'colour = {boxInfo.colour} onChange={onColourChangeHandler}/>:null}
               
-               <ValidationErrorMsg show={submitted}>{errors.blueColorError}</ValidationErrorMsg>
+               <ValidationErrorMsg className= 'error-message'show={submitted}>{errors.blueColourError}</ValidationErrorMsg>
                
                <Label>Country</Label>
                
                
                <DropDownMenu value={boxInfo.country} onChange={onChangeHandler} />
                
-            
-                
-               
-            
-                
-               
-               
-                
-                
-               
-            
-                <Button className='save-btn' type='submit'>Save</Button>    
+               <Button className='save-btn' type='submit'>Save</Button>  
             
                
             
@@ -108,7 +101,9 @@ const InsertForm = () => {
 export default InsertForm
 
 
+const checkForWeightErrorMessage= () => {
 
+}
 
 
 

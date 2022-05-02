@@ -1,6 +1,6 @@
-const ValidationErrorMsg = ({children, show}) => {
+const ValidationErrorMsg = ({children, show, className}) => {
     return (
-        <span>{show ? children : null}</span>
+        <span className={className}>{show ? children : null}</span>
     )
 }
 export default ValidationErrorMsg
