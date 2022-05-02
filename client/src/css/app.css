@@ -1,0 +1,19 @@
+.navbar {
+  display: flex;
+  background-color: rgba(25, 0, 255, 0.753);
+  height: 40px;
+  align-items: center;
+}
+.navbar .link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  width: 100px;
+  height: 100%;
+  row-gap: 10px;
+  color: #fff;
+}
+.navbar .link:hover {
+  background-color: darkblue;
+}

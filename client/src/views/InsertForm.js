@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {useDispatch, useSelector } from 'react-redux'
 import ColorPicker from '../Components/ColourPicker'
+import '../css/insertForm.css'
 import {addBox, onInputChange, onColourChange, onNegativeWeightEntered} from '../redux/actions'
 import Header from '../Components/Header'
 import UserInputField from '../Components/UserInputField'
@@ -50,34 +51,52 @@ const InsertForm = () => {
         dispatch(onColourChange(newColourRGB))
  }
     return(
-        <div className='form-container'>
+        <div className='insert-form'>
             <Header>InsertForm</Header>
-        <form onSubmit={submitHandler}>
-            <div>
-                <UserInputField type="text" name="name" value={boxInfo.name} onChange={onChangeHandler}>name </UserInputField>
+        <form className='form-container' onSubmit={submitHandler}>
+                
+                <Label className='label'>Name</Label>
+                
+                <UserInputField className='input-field'type="text" name="name" value={boxInfo.name} onChange={onChangeHandler}/>
+                
                 <ValidationErrorMsg show={submitted}>{errors.emptyNameError}</ValidationErrorMsg>
-            </div>
-            
-            <div>
-                <UserInputField type='number' name='weight' value={boxInfo.weight} onChange={onChangeHandler}>Weight</UserInputField>
+                
+                <Label>Weight</Label>
+                
+                <UserInputField className='input-field' type='number' name='weight' value={boxInfo.weight} onChange={onChangeHandler}/>
                 <ValidationErrorMsg show={submitted}>{errors.emptyWeightError}</ValidationErrorMsg>
                 <ValidationErrorMsg show={submitted} >{errors.negativeWeightError}</ValidationErrorMsg>
-            </div>
-            <div>
-            
-                <Label >Box Color </Label>
-                <Button type='button' onClick={clickHandler}>{visible?'choose the colour':'click to show colour picker'}</Button>
-                {visible?<ColorPicker colour = {boxInfo.colour} onChange={onColourChangeHandler}/>:null}
-                <ValidationErrorMsg show={submitted}>{errors.blueColorError}</ValidationErrorMsg>
+               
+                <Label>Box Color </Label>
+               
+               <Button type='button' onClick={clickHandler}>{visible?'choose the colour':'click to show colour picker'}</Button>
+               
                 
-                <h2>{JSON.stringify(boxInfo)} </h2>
-                <h2>{JSON.stringify(errors)}</h2>
-                <h2>{JSON.stringify(validated)}</h2>
-            </div>
-                <DropDownMenu value={boxInfo.country} onChange={onChangeHandler} />
-            <div>
-                <Button type='submit'>Save</Button>
-            </div>
+                
+               {visible?<ColorPicker className='color-picker'colour = {boxInfo.colour} onChange={onColourChangeHandler}/>:null}
+              
+               <ValidationErrorMsg show={submitted}>{errors.blueColorError}</ValidationErrorMsg>
+               
+               <Label>Country</Label>
+               
+               
+               <DropDownMenu value={boxInfo.country} onChange={onChangeHandler} />
+               
+            
+                
+               
+            
+                
+               
+               
+                
+                
+               
+            
+                <Button className='save-btn' type='submit'>Save</Button>    
+            
+               
+            
             
         </form>
         

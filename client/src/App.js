@@ -1,7 +1,7 @@
-import './App.css';
+import './css/app.css';
+import NavBar from './Components/NavBar'
 import InsertForm from './views/InsertForm.js'
 import ShippingList from './views/ShippingList'
-import {Home} from './Components/Home.js'
 import {HashRouter as Router, Routes, Route} from 'react-router-dom'
 import {useEffect} from 'react'
 function App() {
@@ -12,8 +12,8 @@ function App() {
     <>
     <Router>
     <div className="App">
+        <NavBar  className="navbar"/>
         <Routes>
-          <Route path="/" element= {<Home/>}/>
           <Route path="/addBox" element={<InsertForm/>}/>
           <Route path="/listBoxes" element={<ShippingList/>}/>
         </Routes>

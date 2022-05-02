@@ -1,8 +1,9 @@
-const Label = ({children}) => {
+//import '../css/label.css'
+const Label = ({className,children}) => {
     return (
-        <>
-            <label>{children}</label>
-        </>
+        <div>
+            <label className={className}>{children}</label>
+        </div>
     )
 }
 

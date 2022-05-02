@@ -1,7 +1,7 @@
 import React from 'react'
 import {ChromePicker} from 'react-color'
 
-const ColorPicker = ({onChange, colour}) => {
+const ColorPicker = ({className,onChange, colour}) => {
     
     const changeColourHandler = (newColour) => {
        // setColour({...colour, ...newColour})
@@ -9,7 +9,7 @@ const ColorPicker = ({onChange, colour}) => {
     }
     return(
         <div>
-                <ChromePicker color={colour} onChange={changeColourHandler}/>
+                <ChromePicker className={className} color={colour} onChange={changeColourHandler}/>
         </div>
     )
 }

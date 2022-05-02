@@ -1,9 +1,8 @@
-const UserInputField = ({onChange, value, type, name, children}) => {
+const UserInputField = ({className,onChange, value, type, name}) => {
     return (
-        <>
-             <label >{children}</label>
-            <input type={type} name={name} id={name} onChange={onChange} value={value}/>
-        </>
+        
+            <input type={type} className= {className} name={name} id={name} onChange={onChange} value={value}/>
+        
     )
 }
 export default UserInputField
