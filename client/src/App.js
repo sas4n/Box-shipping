@@ -1,13 +1,9 @@
 import './css/app.css';
 import NavBar from './Components/NavBar'
 import AddBox from './views/AddBox'
-import ShippingList from './views/ShippingList'
+import ListBoxes from './views/ListBoxes'
 import {HashRouter as Router, Routes, Route} from 'react-router-dom'
-import {useEffect} from 'react'
 function App() {
-  useEffect(() => {
-    console.log('App')
-  }, [])
   return (
     <>
     <Router>
@@ -15,7 +11,7 @@ function App() {
         <NavBar  className="navbar"/>
         <Routes>
           <Route path="/addBox" element={<AddBox/>}/>
-          <Route path="/listBoxes" element={<ShippingList/>}/>
+          <Route path="/listBoxes" element={<ListBoxes/>}/>
         </Routes>
         </div>
       </Router>
