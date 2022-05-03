@@ -17,3 +17,6 @@
 .navbar .link:hover {
   background-color: darkblue;
 }
+.navbar .active {
+  background-color: darkblue;
+}

@@ -1,9 +1,9 @@
-import {Link} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 const  NavBar = ({className}) => {
     return (
         <nav className={className}>
-            <Link className='link' to="/addBox"> Add Box</Link>
-            <Link className='link' to="/listBoxes"> List Boxes</Link>
+            <NavLink className='link' to="/addBox"> Add Box</NavLink>
+            <NavLink className='link' to="/listBoxes"> List Boxes</NavLink>
         </nav>
     )
 }
