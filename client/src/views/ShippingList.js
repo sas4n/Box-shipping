@@ -1,6 +1,6 @@
 import ListTable from '../Components/ListTable'
 import ShippingSummary from '../Components/ShippingSummary'
-import Header from '../Components/Header'
+import Header from '../Components/Header/Header'
 import '../css/shippingList.css'
 
 const ShippingList = ({boxes}) => {
