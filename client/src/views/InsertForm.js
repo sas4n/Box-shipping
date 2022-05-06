@@ -6,7 +6,7 @@ import {addBox, onInputChange, onColourChange, onNegativeWeightEntered} from '..
 import Header from '../Components/Header'
 import UserInputField from '../Components/UserInputField'
 import ValidationErrorMsg from '../Components/ValidationErrorMsg'
-import Button from '../Components/Button'
+import Button from '../Components/Button/Button'
 import DropDownMenu from '../Components/DropDownMenu'
 import Label from '../Components/Label'
 import useValidationError from '../logic/hook/useValidationError'
