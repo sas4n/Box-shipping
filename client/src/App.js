@@ -1,5 +1,5 @@
 import './css/app.css';
-import NavBar from './Components/NavBar'
+import NavBar from './Components/NavBar/NavBar'
 import AddBox from './views/AddBox'
 import ListBoxes from './views/ListBoxes'
 import PageNotExists from './views/PageNotExists'
@@ -9,7 +9,7 @@ function App() {
     <>
     <Router>
    
-        <NavBar  className="navbar" testId="navbar"/>
+        <NavBar  className="navbar" role="navbar"/>
         <Routes>
           <Route path="/addBox" element={<AddBox/>}/>
           <Route path="/listBoxes" element={<ListBoxes/>}/>

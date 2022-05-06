@@ -1,7 +1,7 @@
 import {NavLink} from 'react-router-dom'
-const  NavBar = ({className, testId}) => {
+const  NavBar = ({className, role}) => {
     return (
-        <nav className={className} data-testid={testId}>
+        <nav className={className} role={role}>
             <NavLink className='link' to="/addBox"> Add Box</NavLink>
             <NavLink className='link' to="/listBoxes"> List Boxes</NavLink>
         </nav>
