@@ -13,7 +13,7 @@ const ListTable = ({boxes}) => {
                         <th>Shipping Cost</th>
                     </tr>
                 </thead>
-                <TableBody boxes={boxes} />
+                <TableBody boxes={boxes} role='tableBody' />
                
             </table>
         </>

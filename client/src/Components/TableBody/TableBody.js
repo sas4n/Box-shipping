@@ -1,7 +1,7 @@
 import ColourCell from '../ColourCell/ColourCell'
-const TableBody = ({boxes}) => {
+const TableBody = ({boxes,role}) => {
     return(
-        <tbody>
+        <tbody role={role}>
         {boxes.map(box =>(
             <tr key={box.id}>
                 <td>{box.receiver_name}</td>
