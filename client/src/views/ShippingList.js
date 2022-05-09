@@ -1,4 +1,4 @@
-import ListTable from '../Components/ListTable'
+import ListTable from '../Components/ListTable/ListTable'
 import ShippingSummary from '../Components/ShippingSummary'
 import Header from '../Components/Header/Header'
 import '../css/shippingList.css'

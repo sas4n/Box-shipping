@@ -16,4 +16,14 @@ describe('NavBar', () => {
         const navbar = screen.getByRole('navbar')
         expect(navbar).toBeInTheDocument()
     })
+    it('AddBox link should have correct href', () => {
+        render(<MockRouter role= 'navbar'/>)
+        const addBoxLink = screen.getByRole('link', {name: 'Add Box'})
+        expect(addBoxLink).toHaveAttribute('href', '#/addBox')
+    })
+    it('listBoxes link should have correct href', () => {
+        render(<MockRouter role= 'navbar'/>)
+        const listBoxesLink = screen.getByRole('link', {name: 'List Boxes'})
+        expect(listBoxesLink).toHaveAttribute('href', '#/listBoxes')
+    })
 })
