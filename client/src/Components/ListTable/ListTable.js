@@ -1,4 +1,5 @@
 import React from 'react'
+import ColourCell from '../ColourCell/ColourCell'
 
 const ListTable = ({boxes}) => {
     return (
@@ -17,7 +18,7 @@ const ListTable = ({boxes}) => {
                         <tr key={box.id}>
                             <td>{box.receiver_name}</td>
                             <td>{box.weight} kilograms</td>
-                            <td style={{ background: `rgb(${box.color_r},${box.color_g},${box.color_b})` }}/>
+                            <ColourCell box={box}/>
                             <td>{box.shipping_cost} SEK</td>
                         </tr>
                     ))}
