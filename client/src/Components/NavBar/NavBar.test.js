@@ -1,4 +1,4 @@
-import {screen, render} from '@testing-library/react'
+import {screen, render, fireEvent} from '@testing-library/react'
 import NavBar  from './NavBar'
 import {HashRouter} from 'react-router-dom'
 
@@ -25,5 +25,12 @@ describe('NavBar', () => {
         render(<MockRouter role= 'navbar'/>)
         const listBoxesLink = screen.getByRole('link', {name: 'List Boxes'})
         expect(listBoxesLink).toHaveAttribute('href', '#/listBoxes')
+    })
+    it('After clicking on a link, it should be selected', () => {
+        render(<MockRouter role= 'navbar'/>)
+        const addBoxLink = screen.getByRole('link', {name: 'Add Box'})
+        fireEvent.click(addBoxLink)
+        const clickedLink = screen.getByRole('link', {current: 'page'})  
+        expect(clickedLink).toHaveTextContent('Add Box')
     })
 })
