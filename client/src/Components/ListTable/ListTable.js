@@ -1,5 +1,5 @@
 import React from 'react'
-import ColourCell from '../ColourCell/ColourCell'
+import TableBody  from '../TableBody/TableBody'
 
 const ListTable = ({boxes}) => {
     return (
@@ -13,16 +13,8 @@ const ListTable = ({boxes}) => {
                         <th>Shipping Cost</th>
                     </tr>
                 </thead>
-                <tbody>
-                    {boxes.map(box =>(
-                        <tr key={box.id}>
-                            <td>{box.receiver_name}</td>
-                            <td>{box.weight} kilograms</td>
-                            <ColourCell box={box}/>
-                            <td>{box.shipping_cost} SEK</td>
-                        </tr>
-                    ))}
-                </tbody>
+                <TableBody boxes={boxes} />
+               
             </table>
         </>
     )
