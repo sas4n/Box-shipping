@@ -24,5 +24,14 @@ describe('ListTable', () =>{
         const tableRows = screen.getAllByRole('row')
         expect(tableRows.length).toEqual(1)
     })
+    it('table should show the correct column heading name when there are no boxes', () =>{
+        const FakeBoxes=[]
+        render(<ListTable boxes={FakeBoxes}/>)
+        const columnHeadings = screen.getAllByRole('columnheader')
+        expect(columnHeadings[0]).toHaveTextContent('Receiver')
+        expect(columnHeadings[1]).toHaveTextContent('Weight')
+        expect(columnHeadings[2]).toHaveTextContent('Box Colour')
+        expect(columnHeadings[3]).toHaveTextContent('Shipping Cost')
+    })
     
 })
