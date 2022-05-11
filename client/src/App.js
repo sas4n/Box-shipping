@@ -9,7 +9,7 @@ function App() {
     <>
     <Router>
    
-        <NavBar  className="navbar" role="navbar"/>
+        <NavBar  className="navbar"/>
         <Routes>
           <Route path="/addBox" element={<AddBox/>}/>
           <Route path="/listBoxes" element={<ListBoxes/>}/>
