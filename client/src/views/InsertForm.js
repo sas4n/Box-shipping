@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from 'react'
 import {useDispatch, useSelector } from 'react-redux'
-import ColorPicker from '../Components/ColourPicker'
+import ColorPicker from '../Components/ColourPicker/ColourPicker'
 import '../css/insertForm.css'
 import {addBox, onInputChange, onColourChange, onNegativeWeightEntered} from '../redux/actions'
 import Header from '../Components/Header/Header'
 import UserInputField from '../Components/UserInputField'
 import ValidationErrorMsg from '../Components/ValidationErrorMsg'
 import Button from '../Components/Button/Button'
-import DropDownMenu from '../Components/DropDownMenu'
+import DropDownMenu from '../Components/DropDownMenu/DropDownMenu'
 import Label from '../Components/Label/Label'
 import useValidationError from '../logic/hook/useValidationError'
 import useValidate from '../logic/hook/useValidate'
@@ -77,7 +77,7 @@ const InsertForm = () => {
                
                 
                 
-               {visible?<ColorPicker className='color-picker'colour = {boxInfo.colour} onChange={onColourChangeHandler}/>:null}
+               {visible?<ColorPicker className='color-picker'colour = {boxInfo.colour} role='colourPicker' onChange={onColourChangeHandler}/>:null}
               
                <ValidationErrorMsg className= 'error-message'show={submitted}>{errors.blueColourError}</ValidationErrorMsg>
                
