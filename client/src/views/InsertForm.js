@@ -5,7 +5,7 @@ import '../css/insertForm.css'
 import {addBox, onInputChange, onColourChange, onNegativeWeightEntered} from '../redux/actions'
 import Header from '../Components/Header/Header'
 import UserInputField from '../Components/UserInputField'
-import ValidationErrorMsg from '../Components/ValidationErrorMsg'
+import ValidationErrorMsg from '../Components/ValidationErrorMsg/ValidationErrorMsg'
 import Button from '../Components/Button/Button'
 import DropDownMenu from '../Components/DropDownMenu/DropDownMenu'
 import Label from '../Components/Label/Label'
@@ -62,14 +62,14 @@ const InsertForm = () => {
                 
                 <UserInputField className='input-field'type="text" name="name" value={boxInfo.name} onChange={onChangeHandler}/>
                 
-                <ValidationErrorMsg className= 'error-message' show={submitted}>{errors.emptyNameError}</ValidationErrorMsg>
+                <ValidationErrorMsg className= 'error-message' showable={submitted}>{errors.emptyNameError}</ValidationErrorMsg>
                 
                 <Label>Weight</Label>
                 
                 <UserInputField className='input-field' type='number' name='weight' value={boxInfo.weight} onChange={onChangeHandler}/>
                 {errors.emptyWeightError ? 
-                <ValidationErrorMsg className= 'error-message' show={submitted}>{errors.emptyWeightError}</ValidationErrorMsg> :
-                <ValidationErrorMsg className= 'error-message' show={submitted} >{errors.negativeWeightError}</ValidationErrorMsg>}
+                <ValidationErrorMsg className= 'error-message' showable={submitted}>{errors.emptyWeightError}</ValidationErrorMsg> :
+                <ValidationErrorMsg className= 'error-message' showable={submitted} >{errors.negativeWeightError}</ValidationErrorMsg>}
                
                 <Label>Box Color </Label>
                
@@ -79,7 +79,7 @@ const InsertForm = () => {
                 
                {visible?<ColorPicker className='color-picker'colour = {boxInfo.colour} role='colourPicker' onChange={onColourChangeHandler}/>:null}
               
-               <ValidationErrorMsg className= 'error-message'show={submitted}>{errors.blueColourError}</ValidationErrorMsg>
+               <ValidationErrorMsg className= 'error-message'showable={submitted}>{errors.blueColourError}</ValidationErrorMsg>
                
                <Label>Country</Label>
                

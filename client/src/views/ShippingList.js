@@ -1,5 +1,5 @@
 import ListTable from '../Components/ListTable/ListTable'
-import ShippingSummary from '../Components/ShippingSummary'
+import ShippingSummary from '../Components/ShippingSummary/ShippingSummary'
 import Header from '../Components/Header/Header'
 import '../css/shippingList.css'
 
