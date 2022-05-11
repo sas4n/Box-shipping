@@ -1,10 +1,7 @@
-import {screen, render, fireEvent, cleanup, within} from '@testing-library/react'
+import {screen, render, fireEvent, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import DropDownMenu from './DropDownMenu'
 
-afterEach(() => {
-    cleanup()
-})
 
 describe('DropDownMenu test', () => {
     it('should render dropdown menu', () => {
