@@ -66,7 +66,7 @@ const InsertForm = () => {
                 
                 <Label>Weight</Label>
                 
-                <UserInputField className='input-field' type='number' name='weight' value={boxInfo.weight} onChange={onChangeHandler}/>
+                <UserInputField className='input-field' type='number' name='weight' value={boxInfo.weight} testId='numberbox' onChange={onChangeHandler}/>
                 {errors.emptyWeightError ? 
                 <ValidationErrorMsg className= 'error-message' showable={submitted}>{errors.emptyWeightError}</ValidationErrorMsg> :
                 <ValidationErrorMsg className= 'error-message' showable={submitted} >{errors.negativeWeightError}</ValidationErrorMsg>}

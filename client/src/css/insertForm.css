@@ -40,6 +40,11 @@ Label {
   background-color: rgba(233, 233, 233, 0.897);
   border: 2px solid;
   text-align: center;
+  appearance: none;
+  background-image: url(../image/arrow_down.png);
+  background-repeat: no-repeat;
+  background-position: bottom 2px right 4px;
+  background-size: 24px;
 }
 .form-container Button:nth-of-type(1) {
   width: 200px;
