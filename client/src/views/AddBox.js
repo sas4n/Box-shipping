@@ -1,5 +1,5 @@
 import {useSelector} from 'react-redux'
-import InsertForm from './InsertForm'
+import InsertForm from '../Components/InserForm/InsertForm'
 import Loading from './Loading'
 import Error from './Error'
 

@@ -5,7 +5,6 @@ const useValidate = (errors) => {
     useEffect(() => {
         //checkValidation(errors)
        if(Object.keys(errors).length === 0){
-           console.log('calllllllled')
            setValidated(true)
        }else{
            setValidated(false)
@@ -15,12 +14,8 @@ const useValidate = (errors) => {
     const checkValidation = (errors) => {
         
         if(Object.keys(errors).length === 0){
-            console.log('it called')
-          //  console.log('valid')
-          //    return true
             setValidated(true)
         }else{
-            console.log(' not valid')
             setValidated(false)
          //  return false
         }

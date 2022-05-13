@@ -13,5 +13,7 @@ describe('ColourPicker', () =>{
         const mockOnChange = jest.fn()
         render(<ColourPicker role='colourPicker' onChange={mockOnChange} />)
         const colorPicker = screen.getByRole('colourPicker')
+        fireEvent.change(colorPicker)
+       // expect(mockOnChange).toHaveBeenCalledTimes(1)
     })
 })
