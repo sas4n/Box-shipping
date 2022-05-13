@@ -1,4 +1,4 @@
-import {act, renderHook} from '@testing-library/react-hooks'
+import {renderHook} from '@testing-library/react-hooks'
 import useValidate from '../useValidate'
 
 describe('useValidate test', () => {
