@@ -1,7 +1,11 @@
-import express from 'express';
+/*import express from 'express';
 import cors from 'cors';
 import router from './routers/router.js'
-import { prepareDatabase } from './model/index.js';
+import { prepareDatabase } from './model/index.js';*/
+const express = require('express')
+const cors = require('cors')
+const router = require('./routers/router')
+const {prepareDatabase} = require('./model/index.js')
 
 const app = express()
 

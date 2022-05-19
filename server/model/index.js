@@ -1,14 +1,19 @@
-import database from './shipping_model.js'
+//import database from './shipping_model.js'
+const database = require('./shipping_model.js')
+let isDatabasePrepared = false
 
-export const prepareDatabase = async(req, res, next) => {
-    await database.createDatabase()
-    await database.createShippingTable()
-    await database.createMultiplierTable()
-    await database.insertMultipliers()
+const prepareDatabase = async(req, res, next) => {
+    if(!isDatabasePrepared){
+        await database.createDatabase()
+        await database.createShippingTable()
+        await database.createMultiplierTable()
+        await database.insertMultipliers()
+        isDatabasePrepared = true
+    }
     next()
 }
 
-export const getShippingLists = async() => {
+const getShippingLists = async() => {
     return await database.getShippingLists()
 }
 
@@ -16,9 +21,9 @@ const processTheDataBeforeInsertingIntoDatabsae = (data) => {
     //const dataToBeInserted = [data.name, data.weight, data.]
 }
 
-export const saveShippingLists = async(...data) => {
+const saveShippingLists = async (...data) => {
     return await database.insertDataIntoShippings(data)
 }
 
-
+module.exports = {saveShippingLists,getShippingLists,prepareDatabase}
 

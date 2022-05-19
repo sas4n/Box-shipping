@@ -1,6 +1,8 @@
-import { query } from 'express'
-import mysql from 'mysql'
-import { MULTIPLIERS } from './multiplier_constants.js'
+//import { query } from 'express'
+//import mysql from 'mysql'
+const mysql = require('mysql')
+//import { MULTIPLIERS } from './multiplier_constants.js'
+const {MULTIPLIERS} = require('./multiplier_constants.js')
 
 const database = {}
 
@@ -37,6 +39,7 @@ const connectionPool = mysql.createPool({
 })
 
 database.createShippingTable = () => {
+    console.log('create shipping table')
     const createShippingTableQuery = `CREATE TABLE IF NOT EXISTS shipping ( 
         id int NOT NULL AUTO_INCREMENT,
         receiver_name varchar(40) NOT NULL, 
@@ -50,6 +53,7 @@ database.createShippingTable = () => {
 }
 
 database.createMultiplierTable = () => {
+    console.log("createMultiplierTable")
     const createMultiplierTableQuery = `CREATE TABLE IF NOT EXISTS multipliers (
         country_name varchar(25) NOT NULL,
         multiplier float(2,1) NOT NULL,
@@ -59,6 +63,7 @@ database.createMultiplierTable = () => {
 }
 
 database.getShippingLists = () => {
+    console.log('getShippingLists')
     const query = `SELECT s.id, s.receiver_name, s.weight, s.color_r, s.color_g, s.color_b, weight * m.multiplier AS shipping_cost
     FROM 
     shipping s, multipliers m
@@ -68,19 +73,22 @@ database.getShippingLists = () => {
 }
 
 database.insertMultipliers = () => {
+    console.log('insertMultipliers')
     const query = `INSERT IGNORE INTO multipliers (country_name, multiplier) VALUES ?`
     return databaseHandler(query, MULTIPLIERS) 
 }
 
 database.insertDataIntoShippings = (data) => {
-    console.log( data )
+    //console.log( data )
+    console.log('insert data intoshipping')
     const query = `INSERT IGNORE INTO shipping (receiver_name, weight, color_r, color_g, color_b, country_name) VALUES 
     (?,?,?,?,?,?)`
     //return databaseHandler(query, data)
    return new Promise((resolve, reject) => {
     connectionPool.query(query, data ,(err, result) => {
         if (err) return reject(err)
-        resolve(result)
+        console.log(result.affectedRows)
+        resolve(result.affectedRows)
     })
 })
 }
@@ -90,8 +98,10 @@ const databaseHandler = (query, values) => {
         connectionPool.query(query, [values], (err, result) => {
             if (err) return reject(err)
             console.log(result)
+            console.log('calleed')
             resolve(result)
         })
     })
 }
-export default database
+//export default database
+module.exports = database

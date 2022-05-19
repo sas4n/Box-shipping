@@ -1,8 +1,9 @@
-import {getShippingLists, saveShippingLists} from '../model/index.js'
+//import {saveShippingLists, getShippingLists} from '../model/index.js'
+const {saveShippingLists, getShippingLists} = require('../model/index.js')
 const controller = {}
 
 controller.getALLShippingListsHandler = (req, res, next) => {
-    console.log('before databse call')
+   // console.log('before databse call')
     getShippingLists()
     .then(lists => res.json(lists))
     .catch(err => next(err))
@@ -10,18 +11,21 @@ controller.getALLShippingListsHandler = (req, res, next) => {
 
 controller.postAddBoxHandler = async(req, res, next) => {
     try{
-        console.log('it works')
+       // console.log('it works')
         const{
             name, 
             weight, 
             colour:{r,g,b}, 
             country} = req.body;
-            console.log(name, weight,r,g,b,country)
+           // console.log(name, weight,r,g,b,country)
             //const data= ['sasanwew', 12, 25, 20, 22, 'China']
         //something(req).then((data) => res.json(data))
        
         const response = await saveShippingLists(name, parseInt(weight), r, g, b, country)
-        res.status(200).json(response)
+        console.log(response)
+        res.status(200)
+        console.log('not here')
+        res.json(response)
         //res.redirect('/') dont forget to check this after fixing 'get shipping lists'
     }catch(err) {
         console.log(err.message)
@@ -37,5 +41,5 @@ const something =  (req) => {
         resolve(name)
     })
 }
-
-export default controller
+//export default controller
+module.exports = controller
