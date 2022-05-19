@@ -8,7 +8,7 @@ export default {
  //  automock: true,
   //transformIgnorePatterns: ["/node_modules/(?!rx-basic-store)"],
   //testEnvironment: 'jest-environment-node',
-  transform: {},
+ // transform: {},
  // "modulePaths": [ "<rootDir>" ],
 
   // Stop running tests after `n` failures
