@@ -60,7 +60,8 @@ describe('controller tests', () => {
         })
         it('should pass the error to next in case of any errors', async() => {
             const error = new Error('some error')
-            getShippingLists.mockImplementationOnce(() => Promise.reject(error))
+           // getShippingLists.mockImplementationOnce(() => Promise.reject(error))
+           getShippingLists.mockRejectedValue(error)
             try{
                 await controller.getALLShippingListsHandler(req,res,next)
             }catch(err){

@@ -19,7 +19,7 @@ database.createDatabase = () => {
         const query = `CREATE DATABASE IF NOT EXISTS ${databaseName};`
         connection.query(query, (err, result) => {
             if (err) {
-               return reject(err)
+               return reject(new Error('error in creating database'))
             }
             console.log('database created')
             resolve('database is ready')   
@@ -49,7 +49,8 @@ database.createShippingTable = () => {
         color_b int NOT NULL,
         country_name varchar(30) NOT NULL,
         PRIMARY KEY (id));`
-    return databaseHandler(createShippingTableQuery)
+    const error = 'error in creating shipping list table'
+    return databaseHandler(createShippingTableQuery, error)
 }
 
 database.createMultiplierTable = () => {
@@ -59,7 +60,8 @@ database.createMultiplierTable = () => {
         multiplier float(2,1) NOT NULL,
         PRIMARY KEY (country_name)
     )`
-    return databaseHandler(createMultiplierTableQuery)
+    const error = 'error in creating multiplier table'
+    return databaseHandler(createMultiplierTableQuery, error)
 }
 
 database.getShippingLists = () => {
@@ -69,13 +71,15 @@ database.getShippingLists = () => {
     shipping s, multipliers m
     WHERE 
     s.country_name = m.country_name `
-    return databaseHandler(query)
+    const error = 'error in getting all data from database'
+    return databaseHandler(query, error)
 }
 
 database.insertMultipliers = () => {
     console.log('insertMultipliers')
     const query = `INSERT IGNORE INTO multipliers (country_name, multiplier) VALUES ?`
-    return databaseHandler(query, MULTIPLIERS) 
+    const error = 'error in inserting into multiplier table'
+    return databaseHandler(query, MULTIPLIERS, error) 
 }
 
 database.insertDataIntoShippings = (data) => {
@@ -86,17 +90,17 @@ database.insertDataIntoShippings = (data) => {
     //return databaseHandler(query, data)
    return new Promise((resolve, reject) => {
     connectionPool.query(query, data ,(err, result) => {
-        if (err) return reject(err)
+        if (err) return reject(new Error('error in inserting data into shipping table'))
         console.log(result.affectedRows)
         resolve(result.affectedRows)
     })
 })
 }
 
-const databaseHandler = (query, values) => {
+const databaseHandler = (query, values,error) => {
     return new Promise((resolve, reject) => {
         connectionPool.query(query, [values], (err, result) => {
-            if (err) return reject(err)
+            if (err) return reject(new Error(error))
             console.log(result)
             console.log('calleed')
             resolve(result)
