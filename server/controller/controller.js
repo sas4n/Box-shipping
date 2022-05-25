@@ -2,7 +2,7 @@
 const {saveShippingLists, getShippingLists} = require('../model/index.js')
 const controller = {}
 
-controller.getALLShippingListsHandler = async(req, res, next) => {
+controller.getAllShippingListsHandler = async(req, res, next) => {
    // console.log('before databse call')
    try{
     const response = await getShippingLists()

@@ -1,5 +1,5 @@
 const database = require('../shipping_model')
-const {prepareDatabase, changeDatabasePreparedFlag} = require('../index.js')
+const {prepareDatabase} = require('../index.js')
 
 jest.mock('../shipping_model.js')
 
@@ -15,7 +15,6 @@ describe('shipping_model', () => {
         database.insertMultipliers.mockResolvedValue('something else and different')
         await prepareDatabase(req,res,next)
         expect(next).toHaveBeenCalledWith('database could not created')
-      //  expect(isDatabasePrepared).toBe(true)
     })
     it('should call next() with error message relevant to createMultiplierTable in case of an error in createMultiplierTable happens', async() =>{
         database.createDatabase.mockResolvedValue('database could not created')

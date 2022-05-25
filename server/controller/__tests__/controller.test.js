@@ -53,7 +53,7 @@ describe('controller tests', () => {
            // controller.getALLShippingListsHandler(req,res,next).then(() => {
            //     expect(res.json).toHaveBeenCalledWith(fakeBoxesInfo)
             //})
-            await controller.getALLShippingListsHandler(req,res,next)
+            await controller.getAllShippingListsHandler(req,res,next)
             expect(res.status).toHaveBeenCalledWith(200)
             expect(res.json).toHaveBeenCalledWith(fakeBoxesInfo)
             
@@ -63,7 +63,7 @@ describe('controller tests', () => {
            // getShippingLists.mockImplementationOnce(() => Promise.reject(error))
            getShippingLists.mockRejectedValue(error)
             try{
-                await controller.getALLShippingListsHandler(req,res,next)
+                await controller.getAllShippingListsHandler(req,res,next)
             }catch(err){
                 expect(next).toHaveBeenCalledWith(err)
             }

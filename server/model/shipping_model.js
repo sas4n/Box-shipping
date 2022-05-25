@@ -8,18 +8,23 @@ const database = {}
 
 const databaseName = 'shipping_database'
 
+
+
 database.createDatabase = () => {
+    const connection = mysql.createConnection({
+        host: process.env.HOST || 'localhost',
+        user : process.env.USER || 'root',
+        password : process.env.PASSWORD || 'root',
+        port : process.env.DATABASE_PORT || 3306
+    })
     return new Promise((resolve, reject) => {
-        const connection = mysql.createConnection({
-            host: process.env.HOST || 'localhost',
-            user : process.env.USER || 'root',
-            password : process.env.PASSWORD || 'root',
-            port : process.env.DATABASE_PORT || 3306
-        })
-        const query = `CREATE DATABASE IF NOT EXISTS ${databaseName};`
+       
+        const query = `CREATE DATABASE IF NO EXISTS ${databaseName};`
         connection.query(query, (err, result) => {
+            console.log( err.errno)
+            console.log( result)
             if (err) {
-               return reject(new Error('error in creating database'))
+               return reject(err.errno)
             }
             console.log('database created')
             resolve('database is ready')   
@@ -28,7 +33,6 @@ database.createDatabase = () => {
         connection.end()
     })
 }
-
 const connectionPool = mysql.createPool({
     host : process.env.HOST || 'localhost',
     user : process.env.USER || 'root',
@@ -38,7 +42,9 @@ const connectionPool = mysql.createPool({
     connectionLimit : 15
 })
 
+
 database.createShippingTable = () => {
+    
     console.log('create shipping table')
     const createShippingTableQuery = `CREATE TABLE IF NOT EXISTS shipping ( 
         id int NOT NULL AUTO_INCREMENT,
@@ -101,7 +107,7 @@ const databaseHandler = (query, values,error) => {
     return new Promise((resolve, reject) => {
         connectionPool.query(query, [values], (err, result) => {
             if (err) return reject(new Error(error))
-            console.log(result)
+           // console.log(result)
             console.log('calleed')
             resolve(result)
         })
