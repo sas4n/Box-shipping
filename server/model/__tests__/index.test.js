@@ -1,4 +1,4 @@
-const database = require('../shipping_model')
+const {database} = require('../shipping_model')
 const {prepareDatabase} = require('../index.js')
 
 jest.mock('../shipping_model.js')

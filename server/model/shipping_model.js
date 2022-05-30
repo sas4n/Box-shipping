@@ -6,33 +6,52 @@ const {MULTIPLIERS} = require('./multiplier_constants.js')
 
 const database = {}
 
-const databaseName = 'shipping_database'
+const databaseName = 'shipping_database30'
 
 
+const connection = mysql.createConnection({
+    host: process.env.HOST || 'localhost',
+    user : process.env.USER || 'root',
+    password : process.env.PASSWORD || 'root',
+    port : process.env.DATABASE_PORT || 3306
+})
 
-database.createDatabase = () => {
-    const connection = mysql.createConnection({
-        host: process.env.HOST || 'localhost',
-        user : process.env.USER || 'root',
-        password : process.env.PASSWORD || 'root',
-        port : process.env.DATABASE_PORT || 3306
-    })
+const queryHandler = (err, result) => {
     return new Promise((resolve, reject) => {
-       
-        const query = `CREATE DATABASE IF NO EXISTS ${databaseName};`
-        connection.query(query, (err, result) => {
-            console.log( err.errno)
-            console.log( result)
-            if (err) {
-               return reject(err.errno)
-            }
-            console.log('database created')
-            resolve('database is ready')   
-            
-        })
-        connection.end()
+        if(err){
+            console.log(err)
+            reject(err.code)
+        }else{
+            console.log('queryHandler called')
+            resolve(result.serverStatus)
+            connection.end()
+        }
     })
 }
+
+const poolQueryHandler = (err, result) => {
+    return new Promise((resolve, reject) => {
+        if(err){
+            reject(err)
+        }else{
+            resolve(result)
+        }
+    })
+}
+
+database.createDatabase = async() => {
+        return new Promise((resolve, reject) => {
+                const query = `CREATE DATABASE IF NOT EXISTS ${databaseName};`
+                //console.log(connection)
+                connection.query(query,(err,result) => {queryHandler(err,result)
+                    .then(res=>{
+                        console.log('it shouldnt be called')
+                        resolve(res)})
+                    .catch(err=>reject(err))})    
+               // connection.end() we have to remove this to inside the callback fucntion, otherwise we get error as it will close the connection before query exectes  
+            })
+}
+
 const connectionPool = mysql.createPool({
     host : process.env.HOST || 'localhost',
     user : process.env.USER || 'root',
@@ -44,8 +63,6 @@ const connectionPool = mysql.createPool({
 
 
 database.createShippingTable = () => {
-    
-    console.log('create shipping table')
     const createShippingTableQuery = `CREATE TABLE IF NOT EXISTS shipping ( 
         id int NOT NULL AUTO_INCREMENT,
         receiver_name varchar(40) NOT NULL, 
@@ -55,8 +72,7 @@ database.createShippingTable = () => {
         color_b int NOT NULL,
         country_name varchar(30) NOT NULL,
         PRIMARY KEY (id));`
-    const error = 'error in creating shipping list table'
-    return databaseHandler(createShippingTableQuery, error)
+    return databaseHandler(createShippingTableQuery)
 }
 
 database.createMultiplierTable = () => {
@@ -66,8 +82,7 @@ database.createMultiplierTable = () => {
         multiplier float(2,1) NOT NULL,
         PRIMARY KEY (country_name)
     )`
-    const error = 'error in creating multiplier table'
-    return databaseHandler(createMultiplierTableQuery, error)
+    return databaseHandler(createMultiplierTableQuery)
 }
 
 database.getShippingLists = () => {
@@ -77,41 +92,44 @@ database.getShippingLists = () => {
     shipping s, multipliers m
     WHERE 
     s.country_name = m.country_name `
-    const error = 'error in getting all data from database'
-    return databaseHandler(query, error)
+    return databaseHandler(query)
 }
 
 database.insertMultipliers = () => {
-    console.log('insertMultipliers')
     const query = `INSERT IGNORE INTO multipliers (country_name, multiplier) VALUES ?`
-    const error = 'error in inserting into multiplier table'
-    return databaseHandler(query, MULTIPLIERS, error) 
+    return databaseHandler(query, MULTIPLIERS) 
 }
 
 database.insertDataIntoShippings = (data) => {
-    //console.log( data )
-    console.log('insert data intoshipping')
+    
     const query = `INSERT IGNORE INTO shipping (receiver_name, weight, color_r, color_g, color_b, country_name) VALUES 
     (?,?,?,?,?,?)`
     //return databaseHandler(query, data)
    return new Promise((resolve, reject) => {
     connectionPool.query(query, data ,(err, result) => {
-        if (err) return reject(new Error('error in inserting data into shipping table'))
-        console.log(result.affectedRows)
-        resolve(result.affectedRows)
-    })
+        poolQueryHandler(err, result)
+        .then(result => resolve(result))
+        .catch(error => reject(error))
+    }
+        //if (err) return reject(new Error('error in inserting data into shipping table'))
+        //console.log(result.affectedRows)
+        //resolve(result.affectedRows)
+    //})
+)
 })
 }
 
-const databaseHandler = (query, values,error) => {
+const databaseHandler = (query, values) => {
+    console.log('database handler called')
     return new Promise((resolve, reject) => {
         connectionPool.query(query, [values], (err, result) => {
-            if (err) return reject(new Error(error))
-           // console.log(result)
-            console.log('calleed')
-            resolve(result)
+          poolQueryHandler(err, result)
+          .then(result => resolve(result))
+          .catch(error => reject(error))
         })
     })
 }
 //export default database
-module.exports = database
+module.exports = {
+    database,queryHandler,poolQueryHandler
+}
