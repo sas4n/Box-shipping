@@ -29,6 +29,7 @@ const reducer = (state = initialState, action) => {
             }
         case ERROR_RECEIVED:
             return {
+                ...state,
                 loading: false,
                 error: action.payload
             }

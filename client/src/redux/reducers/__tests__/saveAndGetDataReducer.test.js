@@ -3,7 +3,6 @@ import { ERROR_RECEIVED,
     SAVE_BOX_INFO_SUCCESSFULLY,
     WAITING_FOR_RESPONSE,
     GET_BOX_LIST_SUCCESSFULLY } from '../../actions/actionType'
-    import * as actionType from '../../actions/actionType'
 
 describe('reducer', () => {
     const initialState = {
@@ -38,9 +37,14 @@ describe('reducer', () => {
     it('should return the correct state for error_received action', () => {
         const error = 'some error'
         const action = {type: ERROR_RECEIVED, payload: error}
-        const expectedNextState = {loading: false, error:'some error'}
+        const expectedNextState = {loading: false,boxes: [],error:'some error'}
         const actualNextState = reducer(initialState, action)
         expect(actualNextState).toEqual(expectedNextState)
+        expect(initialState).toEqual({
+            loading: false,
+            boxes: [],
+            error:''
+        })
     })
     it('should return the current state for any other types of action', () => {
         const action = {type: 'some other action'}
