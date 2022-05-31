@@ -15,7 +15,7 @@ jest.mock('mysql', () =>( {
 
 jest.mock('../shipping_model', () =>({
     ...jest.requireActual('../shipping_model'),
-    queryHandler: (err,result) => Promise.resolve(result)
+    queryHandler: jest.fn()
 }))
 
 describe('shipping_model', () => {
@@ -23,8 +23,9 @@ describe('shipping_model', () => {
         //mysql.createConnection()
        
         it('should create database without error', () => {
-           /* const query='CREATE DATABASE IF NOT EXITS shipping_database;'
-            const connection = mysql.createConnection()
+            expect.assertions(1)
+            const query='CREATE DATABASE IF NOT EXITS shipping_database;'
+           /* const connection = mysql.createConnection()
            queryHandler.mockResolvedValue('something')
            connection.query.mockImplementationOnce(query,()=>{queryHandler().then(value=>{
                expect(value).toBe('somethingkkkk')
@@ -32,12 +33,14 @@ describe('shipping_model', () => {
            debugger
          console.log(database.createDatabase)
          const connection = mysql.createConnection()
-            connection.query.mockRejectedValue('something')
+        //queryHandler.mockResolvedValue('something')
+            connection.query.mockImplementationOnce(query,(err,result)=>{queryHandler.mockResolvedValue(result)})
            // await connection.query.mockResolvedValue('hi')
            database.createDatabase()
            .then(value => {
                expect(value).toBe('something')
            })
+           function callback(err, result) {}
            //done()
            // expect(data).toBe('hi')
             
