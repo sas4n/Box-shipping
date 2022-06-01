@@ -10,10 +10,10 @@ const databaseName = 'shipping_database30'
 
 
 const connection = mysql.createConnection({
-    host: process.env.HOST || 'localhost',
-    user : process.env.USER || 'root',
-    password : process.env.PASSWORD || 'root',
-    port : process.env.DATABASE_PORT || 3306
+    host: process.argv[2] || 'localhost',
+    user : process.argv[3] || 'root',
+    password : process.argv[4] || 'root',
+    port : process.argv[5] || 3306
 })
 
 const queryHandler = (err, result) => {
@@ -22,7 +22,7 @@ const queryHandler = (err, result) => {
             console.log(err)
             reject(err.code)
         }else{
-            console.log('queryHandler called')
+            console.log('queryHandler')
             resolve(result.serverStatus)
             connection.end()
         }

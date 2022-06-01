@@ -6,6 +6,9 @@ const express = require('express')
 const cors = require('cors')
 const router = require('./routers/router')
 const {prepareDatabase} = require('./model/index.js')
+const dotenv = require('dotenv')
+
+//dotenv.config()
 
 const app = express()
 
@@ -25,7 +28,7 @@ app.use((req, res, next) => {
 })
 
 app.use((error, req,res, next) => {
-    res.status(error.status || 500).json(error.message)
+    res.status(error.status || 500).json(error.status)
 })
 
 const PORT = process.env.PORT || 5000
