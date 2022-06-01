@@ -19,10 +19,8 @@ const connection = mysql.createConnection({
 const queryHandler = (err, result) => {
     return new Promise((resolve, reject) => {
         if(err){
-            console.log(err)
             reject(err.code)
         }else{
-            console.log('queryHandler')
             resolve(result.serverStatus)
             connection.end()
         }

@@ -1,7 +1,7 @@
 import {useEffect} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {fetchAllBoxLists} from '../redux/actions'
-import ShippingList from './ShippingList'
+import ShippingList from '../Components/shippingList/ShippingList'
 import Loading from './Loading'
 import Error from './Error'
 
