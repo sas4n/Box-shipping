@@ -85,11 +85,6 @@ const InsertForm = ({role}) => {
 export default InsertForm
 
 
-const checkForWeightErrorMessage= () => {
-
-}
-
-
 
  /*const initialBoxInfo = {
         name: '',

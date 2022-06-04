@@ -11,7 +11,7 @@ const useValidate = (errors) => {
        }
     }, [errors])
 
-    const checkValidation = (errors) => {
+    /*const checkValidation = (errors) => {
         
         if(Object.keys(errors).length === 0){
             setValidated(true)
@@ -20,7 +20,7 @@ const useValidate = (errors) => {
          //  return false
         }
        // setValid(validation(errors))
-    }
+    }*/
 
     return {validated}
 }

@@ -45,7 +45,7 @@ describe('AddeBox', () => {
     it('should render only loading page if Loading is true', () => {
         useSelector.mockReturnValue({
             loading: true, 
-            boxes:[{},{}],
+            boxes:[{id:1},{id:2}],
             error:''
         })
     
