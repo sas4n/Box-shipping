@@ -7,7 +7,7 @@ To configure mysql database use this command: _npm start [mysql localhost] [mysq
 #### npm test
 To run all tests
 ### Connecting to mysql database
-In case of any problem connecting to database, refer to this link [Stack-Overflow] (https://stackoverflow.com/questions/50093144/mysql-8-0-client-does-not-support-authentication-protocol-requested-by-server)
+In case of any problem connecting to database, refer to this link [Stack-Overflow](https://stackoverflow.com/questions/50093144/mysql-8-0-client-does-not-support-authentication-protocol-requested-by-server)
 
 
  
