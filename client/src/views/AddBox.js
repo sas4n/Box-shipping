@@ -1,17 +1,17 @@
 import {useSelector} from 'react-redux'
 import InsertForm from '../Components/InserForm/InsertForm'
-import Loading from './Loading'
-import Error from './Error'
+import Loading from '../Components/Loading/Loading'
+import Error from '../Components/Error/Error'
 
 const AddBox = () => {
     const {loading, error} = useSelector(state => state.boxesInfo)
-    console.log(loading)
-    console.log(error)
+    //console.log(loading)
+    //console.log(error)
     return(
         <div>
-        {loading ? <Loading/> : 
+        {loading ? <Loading role='loading-page'/> : 
             <>
-            {error ? <Error/>: <InsertForm/> }
+            {error ? <Error role='error-page'/>: <InsertForm role='insert-form'/> }
             </>
         }
         </div>

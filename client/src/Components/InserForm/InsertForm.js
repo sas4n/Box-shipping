@@ -14,7 +14,7 @@ import useValidate from '../../logic/hook/useValidate'
 import negativeWeightHandler from '../../logic/negativeWeightHandler'
 
 
-const InsertForm = () => {
+const InsertForm = ({role}) => {
 
     const boxInfo = useSelector(state => state.boxInfo)
     const {errors, doValidation} = useValidationError(boxInfo)
@@ -52,7 +52,7 @@ const InsertForm = () => {
         dispatch(onColourChange(newColourRGB))
  }
     return(
-        <div className='insert-form'>
+        <div role={role} className='insert-form'>
             <Header>InsertForm</Header>
             {/* to be able to use getByRole for form, it should have a name attribute*/}
             <form className='form-container' name='insert-form' onSubmit={submitHandler}> 
