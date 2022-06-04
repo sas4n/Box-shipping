@@ -5,8 +5,6 @@ import Error from '../Components/Error/Error'
 
 const AddBox = () => {
     const {loading, error} = useSelector(state => state.boxesInfo)
-    //console.log(loading)
-    //console.log(error)
     return(
         <div>
         {loading ? <Loading role='loading-page'/> : 

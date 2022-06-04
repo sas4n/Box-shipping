@@ -1,4 +1,4 @@
-import {useEffect} from 'react'
+import React from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {fetchAllBoxLists} from '../redux/actions'
 import ShippingList from '../Components/shippingList/ShippingList'
@@ -8,16 +8,16 @@ import Error from '../Components/Error/Error'
 const ListBoxes = () => {
     const {loading, error,boxes} = useSelector(state => state.boxesInfo)
     const dispatch = useDispatch()
-    console.log(boxes)
 
-    useEffect(() => {
+    //in order to be able to mocking the useEffect
+    React.useEffect(() => {
         dispatch(fetchAllBoxLists())
     },[dispatch])
     return(
         <>
          {loading ? <Loading/> : 
             <>
-            {error ? <Error/>: <ShippingList boxes={boxes}/> }
+            {error ? <Error/>: <ShippingList role='shippingList-page' boxes={boxes}/> }
             </>
         }
         </>

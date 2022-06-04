@@ -1,9 +1,5 @@
-//import React  from 'react'
 import {screen, render} from '@testing-library/react'
 import AddBox  from '../AddBox'
-import Loading from '../../Components/Loading/Loading'
-import Error from '../../Components/Error/Error'
-import InsertForm from '../../Components/InserForm/InsertForm'
 import {useSelector} from 'react-redux'
 
 jest.mock('react-redux', () => ({
