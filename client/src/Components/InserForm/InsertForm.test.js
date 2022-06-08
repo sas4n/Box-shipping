@@ -14,7 +14,7 @@ const reduxRender = component => {
     )
 }
 
-
+//this could be called integration test as it s using the real store and rducers, but in the redux documentation, it was suggested to test the actual redux store. So that is why it is here
 describe('InsertForm', () => {
     it('should render the Form', () => {
         reduxRender(<InsertForm />)

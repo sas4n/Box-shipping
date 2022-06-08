@@ -1,4 +1,3 @@
-//import {saveShippingLists, getShippingLists} from '../model/index.js'
 const {saveShippingLists, getShippingLists} = require('../model/index.js')
 const controller = {}
 
