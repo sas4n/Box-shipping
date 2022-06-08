@@ -3,6 +3,10 @@ const {prepareDatabase} = require('../index.js')
 
 jest.mock('../shipping_model.js')
 
+const prepareDatabaseWhenAllFunctionsResolved = () => {
+    
+}
+
 describe('shipping_model', () => {
     const next = jest.fn(res => res)
     const req = {}
@@ -17,7 +21,7 @@ describe('shipping_model', () => {
         expect(next).toHaveBeenCalledWith('database could not created')
     })
     it('should call next() with error message relevant to createMultiplierTable in case of an error in createMultiplierTable happens', async() =>{
-        database.createDatabase.mockResolvedValue('database could not created')
+        database.createDatabase.mockResolvedValue('database created')
         database.createMultiplierTable.mockRejectedValue('something')
         database.createShippingTable.mockResolvedValue('something else')
         database.insertMultipliers.mockResolvedValue('something else and different')
@@ -25,7 +29,7 @@ describe('shipping_model', () => {
         expect(next).toHaveBeenCalledWith('something')
     })
     it('should call next() without anything if there is no error in database preparation', async() => {
-        database.createDatabase.mockResolvedValue('database could not be created')
+        database.createDatabase.mockResolvedValue('database created')
         database.createMultiplierTable.mockResolvedValue('something')
         database.createShippingTable.mockResolvedValue('something else')
         database.insertMultipliers.mockResolvedValue('something else and different')

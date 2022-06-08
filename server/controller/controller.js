@@ -3,7 +3,6 @@ const {saveShippingLists, getShippingLists} = require('../model/index.js')
 const controller = {}
 
 controller.getAllShippingListsHandler = async(req, res, next) => {
-   // console.log('before databse call')
    try{
     const response = await getShippingLists()
     res.status(200)
@@ -11,10 +10,6 @@ controller.getAllShippingListsHandler = async(req, res, next) => {
    }catch(err){
        next(err)
    }
-
-   
-    /*.then(lists => res.json(lists))
-    .catch(err => next(err))*/
 }
 
 controller.postAddBoxHandler = async(req, res, next) => {
@@ -30,7 +25,6 @@ controller.postAddBoxHandler = async(req, res, next) => {
         res.json(response)
         //res.redirect('/') dont forget to check this after fixing 'get shipping lists'
     }catch(err) {
-        console.log(err.message)
         next(err)
     }
    

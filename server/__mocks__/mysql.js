@@ -1,13 +1,13 @@
-const callback = (query,(err, result)=>{
+//const callback = (query,(err, result)=>{
 
-}) 
+//}) 
 module.exports = {
     createConnection(){
         return {
             
             query: (query, callback) => {
                     
-                    callback()
+                    callback(null,'something')
                 
             }
         }

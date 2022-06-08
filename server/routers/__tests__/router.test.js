@@ -1,7 +1,5 @@
 const express = require('express')
 const controller = require('../../controller/controller')
-
-
 jest.mock('../../controller/controller.js')
 
 describe('router', () => {
@@ -9,9 +7,6 @@ describe('router', () => {
     controller.postAddBoxHandler = jest.fn()
     const Router = express.Router()
     it('should call controller.getAllShippingListsHandler if the path is /listboxes', () => {
-        
-       
-        
         Router.get('/listboxes',controller.getAllShippingListsHandler)
         expect(controller.getAllShippingListsHandler).toHaveBeenCalledTimes(1)
     })

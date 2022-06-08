@@ -38,8 +38,8 @@ const InsertForm = ({role}) => {
         negativeWeightHandler(boxInfo,dispatch,onNegativeWeightEntered)      
         if(validated){
             dispatch(addBox(boxInfo))
-        }      
-           
+            
+        } 
     }
     const onChangeHandler = (event) => {
         dispatch(onInputChange(event))
@@ -57,10 +57,10 @@ const InsertForm = ({role}) => {
             {/* to be able to use getByRole for form, it should have a name attribute*/}
             <form className='form-container' name='insert-form' onSubmit={submitHandler}> 
                 <Label className='label'>Name</Label>
-                <UserInputField className='input-field'type="text" name="name" value={boxInfo.name} onChange={onChangeHandler}/>
+                <UserInputField className='input-field' type="text"  name="name" value={boxInfo.name} onChange={onChangeHandler}/>
                 <ValidationErrorMsg className= 'error-message' showable={submitted}>{errors.emptyNameError}</ValidationErrorMsg>
                 
-                <Label>Weight</Label>
+                <Label >Weight</Label>
                 <UserInputField className='input-field' type='number' name='weight' value={boxInfo.weight} testId='numberbox' onChange={onChangeHandler}/>
                 {errors.emptyWeightError ? 
                 <ValidationErrorMsg className= 'error-message' showable={submitted}>{errors.emptyWeightError}</ValidationErrorMsg> :

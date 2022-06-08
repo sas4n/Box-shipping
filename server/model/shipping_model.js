@@ -1,7 +1,4 @@
-//import { query } from 'express'
-//import mysql from 'mysql'
 const mysql = require('mysql')
-//import { MULTIPLIERS } from './multiplier_constants.js'
 const {MULTIPLIERS} = require('./multiplier_constants.js')
 
 const database = {}
@@ -40,7 +37,6 @@ const poolQueryHandler = (err, result) => {
 database.createDatabase = async() => {
         return new Promise((resolve, reject) => {
                 const query = `CREATE DATABASE IF NOT EXISTS ${databaseName};`
-                //console.log(connection)
                 connection.query(query,(err,result) => {queryHandler(err,result)
                     .then(res=>{
                         console.log('it shouldnt be called')
@@ -102,23 +98,16 @@ database.insertDataIntoShippings = (data) => {
     
     const query = `INSERT IGNORE INTO shipping (receiver_name, weight, color_r, color_g, color_b, country_name) VALUES 
     (?,?,?,?,?,?)`
-    //return databaseHandler(query, data)
    return new Promise((resolve, reject) => {
     connectionPool.query(query, data ,(err, result) => {
         poolQueryHandler(err, result)
         .then(result => resolve(result))
         .catch(error => reject(error))
-    }
-        //if (err) return reject(new Error('error in inserting data into shipping table'))
-        //console.log(result.affectedRows)
-        //resolve(result.affectedRows)
-    //})
-)
+    })
 })
 }
 
 const databaseHandler = (query, values) => {
-    console.log('database handler called')
     return new Promise((resolve, reject) => {
         connectionPool.query(query, [values], (err, result) => {
           poolQueryHandler(err, result)
